@@ -1,0 +1,40 @@
+<div class="container">
+<h1> User Management </h1>
+<div class="user-data mt-5">
+<table class="table table-bordered">
+    <thead>
+        <tr> 
+        @for (header of headers; track $index) {
+        <th> {{ header | titlecase }} </th>
+        }
+        </tr>
+    </thead>
+    <tbody>
+        @for (user of users; track user.id) {
+        <tr>
+            @for (header of headers; track $index) {
+                <td>
+                    @if(edituserId === user.id && header.toLowerCase() !== 'id'){
+                        <input [(ngModel)]="user[header]" class="form-control" />
+                    } @else {
+                        {{user[header]}} 
+                    }
+                    </td>
+            }
+            <td>
+                @if (edituserId === user.id) {
+                    <div class="d-flex"> 
+                    <button (click)="saveEdit()" class="btn btn-success me-2 rounded-pill"> Save </button>
+                    <button (click)="cancelEdit()" class="btn btn-danger rounded-pill"> Cancel </button>
+                    </div>
+                } @else {
+                    <button (click)="userEdit(user.id)" class="btn btn-info"> Edit </button>
+                }
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+</div>
+</div>
